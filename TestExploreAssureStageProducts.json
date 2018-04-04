@@ -1,0 +1,115 @@
+{
+  "CreationDate": "2017-11-20",
+  "Commands": [
+    {
+      "Command": "open",
+      "Target": "https://stage.qantasassure.com/",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "//*[@id=\"reactDiv\"]/div/div[2]/div[2]/nav/div/section/span[1]/a/span",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "link=Singles@POS=2",
+      "Value": ""
+    },
+    {
+      "Command": "assertText",
+      "Target": "css=h1._2h31_L._1kVH2O",
+      "Value": "You’re single"
+    },
+    {
+      "Command": "captureScreenshot",
+      "Target": "css=div._1qIe6z",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "link=Couples@POS=3",
+      "Value": ""
+    },
+    {
+      "Command": "waitForPageToLoad",
+      "Target": "",
+      "Value": ""
+    },
+    {
+      "Command": "assertText",
+      "Target": "css=h1._2h31_L._1kVH2O",
+      "Value": "You’re a couple"
+    },
+    {
+      "Command": "captureScreenshot",
+      "Target": "css=div._1qIe6z",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "link=Families@POS=3",
+      "Value": ""
+    },
+    {
+      "Command": "waitForPageToLoad",
+      "Target": "",
+      "Value": ""
+    },
+    {
+      "Command": "assertText",
+      "Target": "css=h1._2h31_L._1kVH2O",
+      "Value": "You’re a family"
+    },
+    {
+      "Command": "captureScreenshot",
+      "Target": "css=div._1qIe6z",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "link=Single Parent@POS=3",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "link=Apple Watch Offer@POS=3",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "link=Switch@POS=3",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "link=Trauma Insurance@POS=2",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "//*[@id=\"reactDiv\"]/div/div[2]/div[2]/nav[1]/div/section/span[1]/a/span",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "link=Health Insurance@POS=2",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "css=span._3kTxwJ._3aml19",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "css=span._1qvi5j",
+      "Value": ""
+    },
+    {
+      "Command": "click",
+      "Target": "link=Income Protection@POS=4",
+      "Value": ""
+    }
+  ]
+}
