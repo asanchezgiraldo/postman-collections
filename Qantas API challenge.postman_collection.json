@@ -345,11 +345,11 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3717b197-9d80-4424-a39d-51db11412a05",
+								"id": "11da8d3f-4f54-4030-8ade-428792aa0375",
 								"type": "text/javascript",
 								"exec": [
-									"pm.test(\"Status code is 400\", function () {",
-									"    pm.response.to.have.status(400);",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
 									"});",
 									"",
 									"pm.test(\"Body matches string with valid JSON load required\", function () {",
