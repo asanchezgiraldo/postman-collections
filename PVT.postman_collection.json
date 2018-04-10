@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "24d221dc-1467-438c-a10d-43a1c0d020b2",
+		"name": "PVT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Member Onboarding",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "02593a3a-4152-48ca-acfa-16d1da60b7b8",
+						"type": "text/javascript",
+						"exec": [
+							"function randomString(len, charSet) {",
+							"    charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';",
+							"    var randomString = '';",
+							"    for (var i = 0; i < len; i++) {",
+							"        var randomPoz = Math.floor(Math.random() * charSet.length);",
+							"        randomString += charSet.substring(randomPoz,randomPoz+1);",
+							"    }",
+							"    return randomString;",
+							"}",
+							"",
+							"var randomValue = randomString(5, 'abcdefghijklmnopqrstuvwxyz');",
+							"var variableInteger = Math.floor(Math.random()* (9 - 1) + 1);",
+							"",
+							"pm.globals.set(\"varyStr\", randomValue);",
+							"pm.globals.set(\"vary\", variableInteger);",
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "26f40f74-c52b-407e-84aa-00bc00f00fe6",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Your qffNumber is present\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.qffNumber).to.not.equal(\"\");",
+							"    pm.environment.set(\"qff\", jsonData.qffNumber);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"title\": \"Mr\",\r\n \"firstName\": \"James{{varyStr}}\",\r\n \"lastName\": \"bond{{varyStr}}\",\r\n \"dateOfBirth\": \"1{{vary}}-0{{vary}}-198{{vary}}\",\r\n \"sex\": \"Male\",\r\n \"motherMaidenName\": \"test\",\r\n \"pin\": \"1234\",\r\n \"email\": \"{{vary}}JamesBond{{varyStr}}@test.com\",\r\n \"phoneDetails\":  [\r\n   {\r\n   \"phoneType\": \"MOBILE\",\r\n   \"countryCode\": \"+61\",\r\n   \"areaCode\": \"\",\r\n   \"number\": \"0422969656\"\r\n }\r\n ],\r\n \"addressDetails\": {\r\n   \"addressType\": \"home\",\r\n   \"line1\": \"10 Bourke Road\",\r\n   \"line2\": \"\",\r\n   \"city\": \"Mascot\",\r\n   \"state\": \"NSW\",\r\n   \"postCode\": \"2020\"\r\n }\r\n}"
+				},
+				"url": {
+					"raw": "{{endpointJoin}}/v1/join",
+					"host": [
+						"{{endpointJoin}}"
+					],
+					"path": [
+						"v1",
+						"join"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Identity Reference",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7af921f4-bd77-46d0-b8e6-48477ef0f688",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your iLoyalID is present\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.identityReferences[0].identityId).to.not.equal(\"\");",
+							"    pm.expect(jsonData.identityReferences[0].identityType).to.equal(\"ASSURE\");",
+							"    pm.environment.set(\"iLoyalId\", jsonData.identityReferences[0].identityId);",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "95be0924-03ba-4bb7-a58e-57019ba1f9e3",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(\"waiting for 10sec for transaction to complete\")",
+							"setTimeout(function(){}, 10000);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{endpointIdentityReference}}/v1/identityreference/QFF/{{qff}}",
+					"host": [
+						"{{endpointIdentityReference}}"
+					],
+					"path": [
+						"v1",
+						"identityreference",
+						"QFF",
+						"{{qff}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Get Member Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1fe47f5-4d43-4882-9ec3-00a69e82cdf9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Details are Correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var iloyalID = pm.variables.get(\"iLoyalId\")",
+							"    var qffId = pm.variables.get(\"qff\")",
+							"",
+							"    pm.expect(jsonData.id).to.equal(iloyalID);",
+							"    pm.expect(jsonData.memberships.qantasFrequentFlyer.id).to.equal(qffId);",
+							"",
+							"    ",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6f36faf3-f519-49c2-bce0-b2cea4bf4460",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(\"waiting for 10sec for transaction to complete\")",
+							"setTimeout(function(){}, 10000);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{endpointMember}}/v1/members/{{iLoyalId}}",
+					"host": [
+						"{{endpointMember}}"
+					],
+					"path": [
+						"v1",
+						"members",
+						"{{iLoyalId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
