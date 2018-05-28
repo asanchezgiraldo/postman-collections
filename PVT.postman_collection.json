@@ -106,8 +106,8 @@
 						"id": "95be0924-03ba-4bb7-a58e-57019ba1f9e3",
 						"type": "text/javascript",
 						"exec": [
-							"console.log(\"waiting for 5sec for transaction to complete\")",
-							"setTimeout(function(){}, 5000);"
+							"console.log(\"waiting for 15sec for transaction to complete\")",
+							"setTimeout(function(){}, 15000);"
 						]
 					}
 				}
@@ -169,8 +169,8 @@
 						"id": "6f36faf3-f519-49c2-bce0-b2cea4bf4460",
 						"type": "text/javascript",
 						"exec": [
-							"console.log(\"waiting for 5sec for transaction to complete\")",
-							"setTimeout(function(){}, 5000);"
+							"console.log(\"waiting for 15sec for transaction to complete\")",
+							"setTimeout(function(){}, 15000);"
 						]
 					}
 				}
